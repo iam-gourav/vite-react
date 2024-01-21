@@ -1,0 +1,19 @@
+/************important******************/
+
+Virtual DOM , Fiber and reconcilliation
+
+main.jsx 
+createRoot method
+
+browser create DOM tree structure 
+createRoot create DOM like structure not real is called virtual DOM
+
+when we update something in html browser remove all DOM tree and repaint or regenerate DOM it's called page reloading.
+but in react virtual DOM is created and compare with browser DOM it updates only those elements 
+who made changes or updated.
+
+the process of updating DOM element by virtual DOM the algorithem which is used behind this process is called fiber.
+
+visit this github :- https://github.com/acdlite/react-fiber-architecture
+
+reconcilllation
