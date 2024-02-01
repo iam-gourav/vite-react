@@ -1,9 +1,40 @@
-import { useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 import './App.css'
 
 function App() {
 
+const [length , setLength] = useState(8)
+const [numberAllowed , setNumberAllowed] = useState(false)
+const [charAllowed , setCharAllowed] = useState(false)
+const [password , setPassword] = useState()
+
+const passwordGenrator = useCallback(()=>{
+let pass = ''
+let str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+if(numberAllowed) str+='0123456789'
+if(charAllowed) str+= '!@#$%^&*()'
+// console.log(str);
+
+for (let i = 0; i < length; i++) {
+  let char = Math.floor(Math.random()*str.length)
+ pass+= str.charAt(char)
+ setPassword(pass)
+  
+}
+
+} , [length , numberAllowed , charAllowed , setPassword])
+useEffect(()=>{
+
+  passwordGenrator()
+} , [length , numberAllowed , charAllowed , setPassword])
+
+
+function handleRange(e){
+  e.preventDefault();
+  console.log(e.target.value);
+  setLength(e.target.value)
+}
 
   return (
     <>
@@ -12,16 +43,35 @@ function App() {
         <div >
 
 
-        <input type="text" className='w-[250px]'  />
+        <input 
+        type="text" 
+        className='w-[250px]
+         text-black'
+         value={password}    />
         <button className='bg-blue-500 border-2 border-white mx-4 w-20'>copy</button>
         </div>
         <div className='flex justify-center  items-center gap-4'>
-          <span>5</span>
-          <input type="range" minLength={5} maxLength={100} />
-          <span>100</span>
-          <input type="checkbox" name="" id="" />
+          
+          <input className='cursor-pointer' type="range" min={8} max={25} onChange={handleRange}  />
+          <span>Length({length})</span>
+          <input
+           type="checkbox"
+            name="number"
+             id="number"
+             defaultChecked={numberAllowed}
+             onChange={()=>{
+              setNumberAllowed((prev)=>!prev)
+             }} />
           <label htmlFor="Number">Number</label>
-          <input type="checkbox" name="" id="" />
+          <input 
+          type="checkbox"
+           name="symbol" 
+           id="symbol"
+           defaultChecked={charAllowed}
+           onChange={()=>{
+            setCharAllowed((prev)=>!prev) 
+           }}
+           />
           <label htmlFor="">Symbol</label>
         </div>
       </div>
