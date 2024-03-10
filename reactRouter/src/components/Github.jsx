@@ -22,5 +22,5 @@ export default Github;
 export const gitApi = async()=>{
   const data =   await fetch("https://api.github.com/users/iam-gourav")
    return data.json()
-   console.log(data);
+  //  console.log(data);
 }
